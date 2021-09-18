@@ -20,5 +20,9 @@ How are you.
 
 Hi Hari, are you in Hyderabad ?
 i have added new line now
+<<<<<<< HEAD
 
 update in local system
+=======
+Update from remote repo
+>>>>>>> 2f7b9529fce52b4e18a0c4bb981e9b2b3f5fef9f
