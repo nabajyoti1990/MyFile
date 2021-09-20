@@ -1,0 +1,1093 @@
+login as: ec2-user
+Authenticating with public key "imported-openssh-key"
+Last login: Sun Sep 12 04:43:11 2021 from 49.37.42.76
+
+       __|  __|_  )
+       _|  (     /   Amazon Linux 2 AMI
+      ___|\___|___|
+
+https://aws.amazon.com/amazon-linux-2/
+[ec2-user@ip-172-31-3-111 ~]$ su - ansible
+Password:
+Last login: Thu Sep  9 15:47:56 UTC 2021 from ip-172-31-0-42.ap-southeast-1.compute.internal on pts/                                  1
+[ansible@ip-172-31-3-111 ~]$
+[ansible@ip-172-31-3-111 ~]$ asible all --list-host
+-bash: asible: command not found
+[ansible@ip-172-31-3-111 ~]$ ansible all --list-host
+  hosts (2):
+    172.31.45.140
+    172.31.0.42
+[ansible@ip-172-31-3-111 ~]$ ansible demo --list-host
+[WARNING]: Could not match supplied host pattern, ignoring: demo
+[WARNING]: No hosts matched, nothing to do
+  hosts (0):
+[ansible@ip-172-31-3-111 ~]$ ansible DEMO  --list-host
+  hosts (2):
+    172.31.45.140
+    172.31.0.42
+[ansible@ip-172-31-3-111 ~]$ ansible DEMO[0] --list-host
+  hosts (1):
+    172.31.45.140
+[ansible@ip-172-31-3-111 ~]$ ansible DEMO[1] --list-host
+  hosts (1):
+    172.31.0.42
+[ansible@ip-172-31-3-111 ~]$ ansible DEMO[-1] --list-host
+  hosts (1):
+    172.31.0.42
+[ansible@ip-172-31-3-111 ~]$ ansible DEMO[2] --list-host
+[WARNING]: No hosts matched, nothing to do
+  hosts (0):
+[ansible@ip-172-31-3-111 ~]$ ansible DEMO[0:1] --list-host
+  hosts (2):
+    172.31.45.140
+    172.31.0.42
+[ansible@ip-172-31-3-111 ~]$ ansible DEMO[0:2] --list-host
+  hosts (2):
+    172.31.45.140
+    172.31.0.42
+[ansible@ip-172-31-3-111 ~]$ ssh 172.31.0.42
+Last login: Sun Sep 12 05:26:41 2021
+
+       __|  __|_  )
+       _|  (     /   Amazon Linux 2 AMI
+      ___|\___|___|
+
+https://aws.amazon.com/amazon-linux-2/
+[ansible@ip-172-31-0-42 ~]$
+[ansible@ip-172-31-0-42 ~]$
+[ansible@ip-172-31-0-42 ~]$ exit
+logout
+Connection to 172.31.0.42 closed.
+[ansible@ip-172-31-3-111 ~]$
+[ansible@ip-172-31-3-111 ~]$
+[ansible@ip-172-31-3-111 ~]$ ls -lrt
+total 0
+-rw-rw-r-- 1 ansible ansible 0 Sep  8 16:25 file1
+-rw-rw-r-- 1 ansible ansible 0 Sep  9 13:35 PPP
+-rw-rw-r-- 1 ansible ansible 0 Sep  9 13:48 FilecreatedbyNode2
+[ansible@ip-172-31-3-111 ~]$ ansible all -a "ls -lrt"
+[WARNING]: Platform linux on host 172.31.0.42 is using the discovered Python interpreter at
+/usr/bin/python, but future installation of another Python interpreter could change this. See
+https://docs.ansible.com/ansible/2.9/reference_appendices/interpreter_discovery.html for more
+information.
+172.31.0.42 | CHANGED | rc=0 >>
+total 0
+-rw-rw-r-- 1 ansible ansible 0 Sep  9 13:47 Node_2
+[WARNING]: Platform linux on host 172.31.45.140 is using the discovered Python interpreter at
+/usr/bin/python, but future installation of another Python interpreter could change this. See
+https://docs.ansible.com/ansible/2.9/reference_appendices/interpreter_discovery.html for more
+information.
+172.31.45.140 | CHANGED | rc=0 >>
+total 4
+-rw-rw-r-- 1 ansible ansible  0 Sep  9 13:25 file2
+-rw-rw-r-- 1 ansible ansible  0 Sep  9 13:25 file1
+-rw-rw-r-- 1 ansible ansible 23 Sep  9 13:30 nabflymaster
+[ansible@ip-172-31-3-111 ~]$ ansible DEMO -a "ls -lrt"
+[WARNING]: Platform linux on host 172.31.0.42 is using the discovered Python interpreter at
+/usr/bin/python, but future installation of another Python interpreter could change this. See
+https://docs.ansible.com/ansible/2.9/reference_appendices/interpreter_discovery.html for more
+information.
+172.31.0.42 | CHANGED | rc=0 >>
+total 0
+-rw-rw-r-- 1 ansible ansible 0 Sep  9 13:47 Node_2
+[WARNING]: Platform linux on host 172.31.45.140 is using the discovered Python interpreter at
+/usr/bin/python, but future installation of another Python interpreter could change this. See
+https://docs.ansible.com/ansible/2.9/reference_appendices/interpreter_discovery.html for more
+information.
+172.31.45.140 | CHANGED | rc=0 >>
+total 4
+-rw-rw-r-- 1 ansible ansible  0 Sep  9 13:25 file2
+-rw-rw-r-- 1 ansible ansible  0 Sep  9 13:25 file1
+-rw-rw-r-- 1 ansible ansible 23 Sep  9 13:30 nabflymaster
+[ansible@ip-172-31-3-111 ~]$ ansible all -a "touch IBM"
+[WARNING]: Consider using the file module with state=touch rather than running 'touch'.  If you
+need to use command because file is insufficient you can add 'warn: false' to this command task or
+set 'command_warnings=False' in ansible.cfg to get rid of this message.
+[WARNING]: Platform linux on host 172.31.45.140 is using the discovered Python interpreter at
+/usr/bin/python, but future installation of another Python interpreter could change this. See
+https://docs.ansible.com/ansible/2.9/reference_appendices/interpreter_discovery.html for more
+information.
+172.31.45.140 | CHANGED | rc=0 >>
+
+[WARNING]: Platform linux on host 172.31.0.42 is using the discovered Python interpreter at
+/usr/bin/python, but future installation of another Python interpreter could change this. See
+https://docs.ansible.com/ansible/2.9/reference_appendices/interpreter_discovery.html for more
+information.
+172.31.0.42 | CHANGED | rc=0 >>
+
+[ansible@ip-172-31-3-111 ~]$ ls -lrt
+total 0
+-rw-rw-r-- 1 ansible ansible 0 Sep  8 16:25 file1
+-rw-rw-r-- 1 ansible ansible 0 Sep  9 13:35 PPP
+-rw-rw-r-- 1 ansible ansible 0 Sep  9 13:48 FilecreatedbyNode2
+[ansible@ip-172-31-3-111 ~]$ pwd
+/home/ansible
+[ansible@ip-172-31-3-111 ~]$ ansible DEMO -a "sudo yum install httpd -y"
+[WARNING]: Consider using 'become', 'become_method', and 'become_user' rather than running sudo
+[WARNING]: Platform linux on host 172.31.0.42 is using the discovered Python interpreter at
+/usr/bin/python, but future installation of another Python interpreter could change this. See
+https://docs.ansible.com/ansible/2.9/reference_appendices/interpreter_discovery.html for more
+information.
+172.31.0.42 | CHANGED | rc=0 >>
+Loaded plugins: extras_suggestions, langpacks, priorities, update-motd
+Package httpd-2.4.48-2.amzn2.x86_64 already installed and latest version
+Nothing to do
+[WARNING]: Platform linux on host 172.31.45.140 is using the discovered Python interpreter at
+/usr/bin/python, but future installation of another Python interpreter could change this. See
+https://docs.ansible.com/ansible/2.9/reference_appendices/interpreter_discovery.html for more
+information.
+172.31.45.140 | CHANGED | rc=0 >>
+Loaded plugins: extras_suggestions, langpacks, priorities, update-motd
+Package httpd-2.4.48-2.amzn2.x86_64 already installed and latest version
+Nothing to do
+[ansible@ip-172-31-3-111 ~]$ ansible DEMO -ba "yum remove httpd -y"
+[WARNING]: Consider using the yum module rather than running 'yum'.  If you need to use command
+because yum is insufficient you can add 'warn: false' to this command task or set
+'command_warnings=False' in ansible.cfg to get rid of this message.
+[WARNING]: Platform linux on host 172.31.0.42 is using the discovered Python interpreter at
+/usr/bin/python, but future installation of another Python interpreter could change this. See
+https://docs.ansible.com/ansible/2.9/reference_appendices/interpreter_discovery.html for more
+information.
+172.31.0.42 | CHANGED | rc=0 >>
+Loaded plugins: extras_suggestions, langpacks, priorities, update-motd
+Resolving Dependencies
+--> Running transaction check
+---> Package httpd.x86_64 0:2.4.48-2.amzn2 will be erased
+--> Processing Dependency: httpd-mmn = 20120211x8664 for package: mod_http2-1.15.19-1.amzn2.0.1.x86_                                  64
+--> Running transaction check
+---> Package mod_http2.x86_64 0:1.15.19-1.amzn2.0.1 will be erased
+--> Finished Dependency Resolution
+
+Dependencies Resolved
+
+================================================================================
+ Package         Arch         Version                   Repository         Size
+================================================================================
+Removing:
+ httpd           x86_64       2.4.48-2.amzn2            @amzn2-core       4.0 M
+Removing for dependencies:
+ mod_http2       x86_64       1.15.19-1.amzn2.0.1       @amzn2-core       382 k
+
+Transaction Summary
+================================================================================
+Remove  1 Package (+1 Dependent package)
+
+Installed size: 4.4 M
+Downloading packages:
+Running transaction check
+Running transaction test
+Transaction test succeeded
+Running transaction
+  Erasing    : httpd-2.4.48-2.amzn2.x86_64                                  1/2
+  Erasing    : mod_http2-1.15.19-1.amzn2.0.1.x86_64                         2/2
+  Verifying  : mod_http2-1.15.19-1.amzn2.0.1.x86_64                         1/2
+  Verifying  : httpd-2.4.48-2.amzn2.x86_64                                  2/2
+
+Removed:
+  httpd.x86_64 0:2.4.48-2.amzn2
+
+Dependency Removed:
+  mod_http2.x86_64 0:1.15.19-1.amzn2.0.1
+
+Complete!
+[WARNING]: Platform linux on host 172.31.45.140 is using the discovered Python interpreter at
+/usr/bin/python, but future installation of another Python interpreter could change this. See
+https://docs.ansible.com/ansible/2.9/reference_appendices/interpreter_discovery.html for more
+information.
+172.31.45.140 | CHANGED | rc=0 >>
+Loaded plugins: extras_suggestions, langpacks, priorities, update-motd
+Resolving Dependencies
+--> Running transaction check
+---> Package httpd.x86_64 0:2.4.48-2.amzn2 will be erased
+--> Processing Dependency: httpd-mmn = 20120211x8664 for package: mod_http2-1.15.19-1.amzn2.0.1.x86_                                  64
+--> Running transaction check
+---> Package mod_http2.x86_64 0:1.15.19-1.amzn2.0.1 will be erased
+--> Finished Dependency Resolution
+
+Dependencies Resolved
+
+================================================================================
+ Package         Arch         Version                   Repository         Size
+================================================================================
+Removing:
+ httpd           x86_64       2.4.48-2.amzn2            @amzn2-core       4.0 M
+Removing for dependencies:
+ mod_http2       x86_64       1.15.19-1.amzn2.0.1       @amzn2-core       382 k
+
+Transaction Summary
+================================================================================
+Remove  1 Package (+1 Dependent package)
+
+Installed size: 4.4 M
+Downloading packages:
+Running transaction check
+Running transaction test
+Transaction test succeeded
+Running transaction
+  Erasing    : httpd-2.4.48-2.amzn2.x86_64                                  1/2
+  Erasing    : mod_http2-1.15.19-1.amzn2.0.1.x86_64                         2/2
+  Verifying  : mod_http2-1.15.19-1.amzn2.0.1.x86_64                         1/2
+  Verifying  : httpd-2.4.48-2.amzn2.x86_64                                  2/2
+
+Removed:
+  httpd.x86_64 0:2.4.48-2.amzn2
+
+Dependency Removed:
+  mod_http2.x86_64 0:1.15.19-1.amzn2.0.1
+
+Complete!
+[ansible@ip-172-31-3-111 ~]$ ansible all -b -m yum -a "pkg=httpd state=present"
+[WARNING]: Platform linux on host 172.31.0.42 is using the discovered Python interpreter at
+/usr/bin/python, but future installation of another Python interpreter could change this. See
+https://docs.ansible.com/ansible/2.9/reference_appendices/interpreter_discovery.html for more
+information.
+172.31.0.42 | CHANGED => {
+    "ansible_facts": {
+        "discovered_interpreter_python": "/usr/bin/python"
+    },
+    "changed": true,
+    "changes": {
+        "installed": [
+            "httpd"
+        ]
+    },
+    "msg": "",
+    "rc": 0,
+    "results": [
+        "Loaded plugins: extras_suggestions, langpacks, priorities, update-motd\nResolving Dependenc                                  ies\n--> Running transaction check\n---> Package httpd.x86_64 0:2.4.48-2.amzn2 will be installed\n--                                  > Processing Dependency: mod_http2 for package: httpd-2.4.48-2.amzn2.x86_64\n--> Running transaction                                   check\n---> Package mod_http2.x86_64 0:1.15.19-1.amzn2.0.1 will be installed\n--> Finished Dependen                                  cy Resolution\n\nDependencies Resolved\n\n==========================================================                                  ======================\n Package         Arch         Version                    Repository        S                                  ize\n================================================================================\nInstalling:\n                                   httpd           x86_64       2.4.48-2.amzn2             amzn2-core       1.3 M\nInstalling for depe                                  ndencies:\n mod_http2       x86_64       1.15.19-1.amzn2.0.1        amzn2-core       149 k\n\nTransa                                  ction Summary\n================================================================================\nIns                                  tall  1 Package (+1 Dependent package)\n\nTotal download size: 1.5 M\nInstalled size: 4.4 M\nDownloa                                  ding packages:\n--------------------------------------------------------------------------------\nTo                                  tal                                              7.8 MB/s | 1.5 MB  00:00     \nRunning transaction                                   check\nRunning transaction test\nTransaction test succeeded\nRunning transaction\n  Installing : htt                                  pd-2.4.48-2.amzn2.x86_64                                  1/2 \n  Installing : mod_http2-1.15.19-1.a                                  mzn2.0.1.x86_64                         2/2 \n  Verifying  : mod_http2-1.15.19-1.amzn2.0.1.x86_64                                                           1/2 \n  Verifying  : httpd-2.4.48-2.amzn2.x86_64                                                                    2/2 \n\nInstalled:\n  httpd.x86_64 0:2.4.48-2.amzn2                                                                                   \n\nDependency Installed:\n  mod_http2.x86_64 0:1.15.19-1.amzn2.0.1                                                                          \n\nComplete!\n"
+    ]
+}
+[WARNING]: Platform linux on host 172.31.45.140 is using the discovered Python interpreter at
+/usr/bin/python, but future installation of another Python interpreter could change this. See
+https://docs.ansible.com/ansible/2.9/reference_appendices/interpreter_discovery.html for more
+information.
+172.31.45.140 | CHANGED => {
+    "ansible_facts": {
+        "discovered_interpreter_python": "/usr/bin/python"
+    },
+    "changed": true,
+    "changes": {
+        "installed": [
+            "httpd"
+        ]
+    },
+    "msg": "",
+    "rc": 0,
+    "results": [
+        "Loaded plugins: extras_suggestions, langpacks, priorities, update-motd\nResolving Dependenc                                  ies\n--> Running transaction check\n---> Package httpd.x86_64 0:2.4.48-2.amzn2 will be installed\n--                                  > Processing Dependency: mod_http2 for package: httpd-2.4.48-2.amzn2.x86_64\n--> Running transaction                                   check\n---> Package mod_http2.x86_64 0:1.15.19-1.amzn2.0.1 will be installed\n--> Finished Dependen                                  cy Resolution\n\nDependencies Resolved\n\n==========================================================                                  ======================\n Package         Arch         Version                    Repository        S                                  ize\n================================================================================\nInstalling:\n                                   httpd           x86_64       2.4.48-2.amzn2             amzn2-core       1.3 M\nInstalling for depe                                  ndencies:\n mod_http2       x86_64       1.15.19-1.amzn2.0.1        amzn2-core       149 k\n\nTransa                                  ction Summary\n================================================================================\nIns                                  tall  1 Package (+1 Dependent package)\n\nTotal download size: 1.5 M\nInstalled size: 4.4 M\nDownloa                                  ding packages:\n--------------------------------------------------------------------------------\nTo                                  tal                                              8.8 MB/s | 1.5 MB  00:00     \nRunning transaction                                   check\nRunning transaction test\nTransaction test succeeded\nRunning transaction\n  Installing : htt                                  pd-2.4.48-2.amzn2.x86_64                                  1/2 \n  Installing : mod_http2-1.15.19-1.a                                  mzn2.0.1.x86_64                         2/2 \n  Verifying  : mod_http2-1.15.19-1.amzn2.0.1.x86_64                                                           1/2 \n  Verifying  : httpd-2.4.48-2.amzn2.x86_64                                                                    2/2 \n\nInstalled:\n  httpd.x86_64 0:2.4.48-2.amzn2                                                                                   \n\nDependency Installed:\n  mod_http2.x86_64 0:1.15.19-1.amzn2.0.1                                                                          \n\nComplete!\n"
+    ]
+}
+[ansible@ip-172-31-3-111 ~]$ ansible all -b -m yum -a "pkg=httpd state=present"
+[WARNING]: Platform linux on host 172.31.0.42 is using the discovered Python interpreter at
+/usr/bin/python, but future installation of another Python interpreter could change this. See
+https://docs.ansible.com/ansible/2.9/reference_appendices/interpreter_discovery.html for more
+information.
+172.31.0.42 | SUCCESS => {
+    "ansible_facts": {
+        "discovered_interpreter_python": "/usr/bin/python"
+    },
+    "changed": false,
+    "msg": "",
+    "rc": 0,
+    "results": [
+        "httpd-2.4.48-2.amzn2.x86_64 providing httpd is already installed"
+    ]
+}
+[WARNING]: Platform linux on host 172.31.45.140 is using the discovered Python interpreter at
+/usr/bin/python, but future installation of another Python interpreter could change this. See
+https://docs.ansible.com/ansible/2.9/reference_appendices/interpreter_discovery.html for more
+information.
+172.31.45.140 | SUCCESS => {
+    "ansible_facts": {
+        "discovered_interpreter_python": "/usr/bin/python"
+    },
+    "changed": false,
+    "msg": "",
+    "rc": 0,
+    "results": [
+        "httpd-2.4.48-2.amzn2.x86_64 providing httpd is already installed"
+    ]
+}
+[ansible@ip-172-31-3-111 ~]$ ansible all -b -m yum -a "pkg=httpd state=                                                               present"
+[WARNING]: Platform linux on host 172.31.45.140 is using the discovered                                                                Python
+interpreter at /usr/bin/python, but future installation of another Pyth                                                               on
+interpreter could change this. See https://docs.ansible.com/ansible/2.9                                                               /referen
+ce_appendices/interpreter_discovery.html for more information.
+172.31.45.140 | SUCCESS => {
+    "ansible_facts": {
+        "discovered_interpreter_python": "/usr/bin/python"
+    },
+    "changed": false,
+    "msg": "",
+    "rc": 0,
+    "results": [
+        "httpd-2.4.48-2.amzn2.x86_64 providing httpd is already install                                                               ed"
+    ]
+}
+[WARNING]: Platform linux on host 172.31.0.42 is using the discovered P                                                               ython
+interpreter at /usr/bin/python, but future installation of another Pyth                                                               on
+interpreter could change this. See https://docs.ansible.com/ansible/2.9                                                               /referen
+ce_appendices/interpreter_discovery.html for more information.
+172.31.0.42 | CHANGED => {
+    "ansible_facts": {
+        "discovered_interpreter_python": "/usr/bin/python"
+    },
+    "changed": true,
+    "changes": {
+        "installed": [
+            "httpd"
+        ]
+    },
+    "msg": "",
+    "rc": 0,
+    "results": [
+        "Loaded plugins: extras_suggestions, langpacks, priorities, upd                                                               ate-motd\nResolving Dependencies\n--> Running transaction check\n---> P                                                               ackage httpd.x86_64 0:2.4.48-2.amzn2 will be installed\n--> Processing                                                                Dependency: mod_http2 for package: httpd-2.4.48-2.amzn2.x86_64\n--> Run                                                               ning transaction check\n---> Package mod_http2.x86_64 0:1.15.19-1.amzn2                                                               .0.1 will be installed\n--> Finished Dependency Resolution\n\nDependenc                                                               ies Resolved\n\n=======================================================                                                               =========================\n Package         Arch         Version                                                                                   Repository        Size\n==================================                                                               ==============================================\nInstalling:\n httpd                                                                          x86_64       2.4.48-2.amzn2             amzn2-core       1.3 M\n                                                               Installing for dependencies:\n mod_http2       x86_64       1.15.19-1.a                                                               mzn2.0.1        amzn2-core       149 k\n\nTransaction Summary\n========                                                               =======================================================================                                                               =\nInstall  1 Package (+1 Dependent package)\n\nTotal download size: 1.                                                               5 M\nInstalled size: 4.4 M\nDownloading packages:\n--------------------                                                               ------------------------------------------------------------\nTotal                                                                                                             8.7 MB/s | 1.5 MB  00:00                                                                    \nRunning transaction check\nRunning transaction test\nTransaction test                                                                succeeded\nRunning transaction\n  Installing : httpd-2.4.48-2.amzn2.x8                                                               6_64                                  1/2 \n  Installing : mod_http2-1.                                                               15.19-1.amzn2.0.1.x86_64                         2/2 \n  Verifying  : m                                                               od_http2-1.15.19-1.amzn2.0.1.x86_64                         1/2 \n  Ver                                                               ifying  : httpd-2.4.48-2.amzn2.x86_64                                                                                                 2/2 \n\nInstalled:\n  httpd.x86_64 0:2.4.48-2.amzn2                                                                                                                \n\nDependency Installed:\n  mod_http2.x86                                                               _64 0:1.15.19-1.amzn2.0.1                                        \n\nCo                                                               mplete!\n"
+    ]
+}
+[ansible@ip-172-31-3-111 ~]$ ansible all -b -m yum -a "pkg=httpd state=present"
+[WARNING]: Platform linux on host 172.31.45.140 is using the discovered Python interpreter at /usr/bin/python, but future
+installation of another Python interpreter could change this. See
+https://docs.ansible.com/ansible/2.9/reference_appendices/interpreter_discovery.html for more information.
+172.31.45.140 | SUCCESS => {
+    "ansible_facts": {
+        "discovered_interpreter_python": "/usr/bin/python"
+    },
+    "changed": false,
+    "msg": "",
+    "rc": 0,
+    "results": [
+        "httpd-2.4.48-2.amzn2.x86_64 providing httpd is already installed"
+    ]
+}
+[WARNING]: Platform linux on host 172.31.0.42 is using the discovered Python interpreter at /usr/bin/python, but future installation
+of another Python interpreter could change this. See
+https://docs.ansible.com/ansible/2.9/reference_appendices/interpreter_discovery.html for more information.
+172.31.0.42 | SUCCESS => {
+    "ansible_facts": {
+        "discovered_interpreter_python": "/usr/bin/python"
+    },
+    "changed": false,
+    "msg": "",
+    "rc": 0,
+    "results": [
+        "httpd-2.4.48-2.amzn2.x86_64 providing httpd is already installed"
+    ]
+}
+[ansible@ip-172-31-3-111 ~]$ ls -lrt
+total 0
+-rw-rw-r-- 1 ansible ansible 0 Sep  8 16:25 file1
+-rw-rw-r-- 1 ansible ansible 0 Sep  9 13:35 PPP
+-rw-rw-r-- 1 ansible ansible 0 Sep  9 13:48 FilecreatedbyNode2
+[ansible@ip-172-31-3-111 ~]$ ansible all -b -m yum -a "pkg=httpd state=latest"
+[WARNING]: Platform linux on host 172.31.0.42 is using the discovered Python interpreter at /usr/bin/python, but future installation
+of another Python interpreter could change this. See
+https://docs.ansible.com/ansible/2.9/reference_appendices/interpreter_discovery.html for more information.
+172.31.0.42 | SUCCESS => {
+    "ansible_facts": {
+        "discovered_interpreter_python": "/usr/bin/python"
+    },
+    "changed": false,
+    "changes": {
+        "installed": [],
+        "updated": []
+    },
+    "msg": "",
+    "rc": 0,
+    "results": [
+        "All packages providing httpd are up to date",
+        ""
+    ]
+}
+[WARNING]: Platform linux on host 172.31.45.140 is using the discovered Python interpreter at /usr/bin/python, but future
+installation of another Python interpreter could change this. See
+https://docs.ansible.com/ansible/2.9/reference_appendices/interpreter_discovery.html for more information.
+172.31.45.140 | SUCCESS => {
+    "ansible_facts": {
+        "discovered_interpreter_python": "/usr/bin/python"
+    },
+    "changed": false,
+    "changes": {
+        "installed": [],
+        "updated": []
+    },
+    "msg": "",
+    "obsoletes": {
+        "grub2": {
+            "dist": "x86_64",
+            "repo": "installed",
+            "version": "1:2.02-35.amzn2.0.4"
+        },
+        "grub2-tools": {
+            "dist": "x86_64",
+            "repo": "installed",
+            "version": "1:2.02-35.amzn2.0.4"
+        }
+    },
+    "rc": 0,
+    "results": [
+        "All packages providing httpd are up to date",
+        ""
+    ]
+}
+[ansible@ip-172-31-3-111 ~]$ ansible all -b -m yum -a "pkg=httpd state=absent"
+[WARNING]: Platform linux on host 172.31.0.42 is using the discovered Python interpreter at /usr/bin/python, but future installation
+of another Python interpreter could change this. See
+https://docs.ansible.com/ansible/2.9/reference_appendices/interpreter_discovery.html for more information.
+172.31.0.42 | CHANGED => {
+    "ansible_facts": {
+        "discovered_interpreter_python": "/usr/bin/python"
+    },
+    "changed": true,
+    "changes": {
+        "removed": [
+            "httpd"
+        ]
+    },
+    "msg": "",
+    "rc": 0,
+    "results": [
+        "Loaded plugins: extras_suggestions, langpacks, priorities, update-motd\nResolving Dependencies\n--> Running transaction check\n---> Package httpd.x86_64 0:2.4.48-2.amzn2 will be erased\n--> Processing Dependency: httpd-mmn = 20120211x8664 for package: mod_http2-1.15.19-1.amzn2.0.1.x86_64\n--> Running transaction check\n---> Package mod_http2.x86_64 0:1.15.19-1.amzn2.0.1 will be erased\n--> Finished Dependency Resolution\n\nDependencies Resolved\n\n================================================================================\n Package         Arch         Version                   Repository         Size\n================================================================================\nRemoving:\n httpd           x86_64       2.4.48-2.amzn2            @amzn2-core       4.0 M\nRemoving for dependencies:\n mod_http2       x86_64       1.15.19-1.amzn2.0.1       @amzn2-core       382 k\n\nTransaction Summary\n================================================================================\nRemove  1 Package (+1 Dependent package)\n\nInstalled size: 4.4 M\nDownloading packages:\nRunning transaction check\nRunning transaction test\nTransaction test succeeded\nRunning transaction\n  Erasing    : httpd-2.4.48-2.amzn2.x86_64                                  1/2 \n  Erasing    : mod_http2-1.15.19-1.amzn2.0.1.x86_64                         2/2 \n  Verifying  : mod_http2-1.15.19-1.amzn2.0.1.x86_64                         1/2 \n  Verifying  : httpd-2.4.48-2.amzn2.x86_64                                  2/2 \n\nRemoved:\n  httpd.x86_64 0:2.4.48-2.amzn2                                                 \n\nDependency Removed:\n  mod_http2.x86_64 0:1.15.19-1.amzn2.0.1                                        \n\nComplete!\n"
+    ]
+}
+[WARNING]: Platform linux on host 172.31.45.140 is using the discovered Python interpreter at /usr/bin/python, but future
+installation of another Python interpreter could change this. See
+https://docs.ansible.com/ansible/2.9/reference_appendices/interpreter_discovery.html for more information.
+172.31.45.140 | CHANGED => {
+    "ansible_facts": {
+        "discovered_interpreter_python": "/usr/bin/python"
+    },
+    "changed": true,
+    "changes": {
+        "removed": [
+            "httpd"
+        ]
+    },
+    "msg": "",
+    "rc": 0,
+    "results": [
+        "Loaded plugins: extras_suggestions, langpacks, priorities, update-motd\nResolving Dependencies\n--> Running transaction check\n---> Package httpd.x86_64 0:2.4.48-2.amzn2 will be erased\n--> Processing Dependency: httpd-mmn = 20120211x8664 for package: mod_http2-1.15.19-1.amzn2.0.1.x86_64\n--> Running transaction check\n---> Package mod_http2.x86_64 0:1.15.19-1.amzn2.0.1 will be erased\n--> Finished Dependency Resolution\n\nDependencies Resolved\n\n================================================================================\n Package         Arch         Version                   Repository         Size\n================================================================================\nRemoving:\n httpd           x86_64       2.4.48-2.amzn2            @amzn2-core       4.0 M\nRemoving for dependencies:\n mod_http2       x86_64       1.15.19-1.amzn2.0.1       @amzn2-core       382 k\n\nTransaction Summary\n================================================================================\nRemove  1 Package (+1 Dependent package)\n\nInstalled size: 4.4 M\nDownloading packages:\nRunning transaction check\nRunning transaction test\nTransaction test succeeded\nRunning transaction\n  Erasing    : httpd-2.4.48-2.amzn2.x86_64                                  1/2 \n  Erasing    : mod_http2-1.15.19-1.amzn2.0.1.x86_64                         2/2 \n  Verifying  : mod_http2-1.15.19-1.amzn2.0.1.x86_64                         1/2 \n  Verifying  : httpd-2.4.48-2.amzn2.x86_64                                  2/2 \n\nRemoved:\n  httpd.x86_64 0:2.4.48-2.amzn2                                                 \n\nDependency Removed:\n  mod_http2.x86_64 0:1.15.19-1.amzn2.0.1                                        \n\nComplete!\n"
+    ]
+}
+[ansible@ip-172-31-3-111 ~]$ ansible all -b -m yum -a "pkg=httpd state=present"
+[WARNING]: Platform linux on host 172.31.0.42 is using the discovered Python interpreter at /usr/bin/python, but future installation
+of another Python interpreter could change this. See
+https://docs.ansible.com/ansible/2.9/reference_appendices/interpreter_discovery.html for more information.
+172.31.0.42 | CHANGED => {
+    "ansible_facts": {
+        "discovered_interpreter_python": "/usr/bin/python"
+    },
+    "changed": true,
+    "changes": {
+        "installed": [
+            "httpd"
+        ]
+    },
+    "msg": "",
+    "rc": 0,
+    "results": [
+        "Loaded plugins: extras_suggestions, langpacks, priorities, update-motd\nResolving Dependencies\n--> Running transaction check\n---> Package httpd.x86_64 0:2.4.48-2.amzn2 will be installed\n--> Processing Dependency: mod_http2 for package: httpd-2.4.48-2.amzn2.x86_64\n--> Running transaction check\n---> Package mod_http2.x86_64 0:1.15.19-1.amzn2.0.1 will be installed\n--> Finished Dependency Resolution\n\nDependencies Resolved\n\n================================================================================\n Package         Arch         Version                    Repository        Size\n================================================================================\nInstalling:\n httpd           x86_64       2.4.48-2.amzn2             amzn2-core       1.3 M\nInstalling for dependencies:\n mod_http2       x86_64       1.15.19-1.amzn2.0.1        amzn2-core       149 k\n\nTransaction Summary\n================================================================================\nInstall  1 Package (+1 Dependent package)\n\nTotal download size: 1.5 M\nInstalled size: 4.4 M\nDownloading packages:\n--------------------------------------------------------------------------------\nTotal                                              8.6 MB/s | 1.5 MB  00:00     \nRunning transaction check\nRunning transaction test\nTransaction test succeeded\nRunning transaction\n  Installing : httpd-2.4.48-2.amzn2.x86_64                                  1/2 \n  Installing : mod_http2-1.15.19-1.amzn2.0.1.x86_64                         2/2 \n  Verifying  : mod_http2-1.15.19-1.amzn2.0.1.x86_64                         1/2 \n  Verifying  : httpd-2.4.48-2.amzn2.x86_64                                  2/2 \n\nInstalled:\n  httpd.x86_64 0:2.4.48-2.amzn2                                                 \n\nDependency Installed:\n  mod_http2.x86_64 0:1.15.19-1.amzn2.0.1                                        \n\nComplete!\n"
+    ]
+}
+[WARNING]: Platform linux on host 172.31.45.140 is using the discovered Python interpreter at /usr/bin/python, but future
+installation of another Python interpreter could change this. See
+https://docs.ansible.com/ansible/2.9/reference_appendices/interpreter_discovery.html for more information.
+172.31.45.140 | CHANGED => {
+    "ansible_facts": {
+        "discovered_interpreter_python": "/usr/bin/python"
+    },
+    "changed": true,
+    "changes": {
+        "installed": [
+            "httpd"
+        ]
+    },
+    "msg": "",
+    "rc": 0,
+    "results": [
+        "Loaded plugins: extras_suggestions, langpacks, priorities, update-motd\nResolving Dependencies\n--> Running transaction check\n---> Package httpd.x86_64 0:2.4.48-2.amzn2 will be installed\n--> Processing Dependency: mod_http2 for package: httpd-2.4.48-2.amzn2.x86_64\n--> Running transaction check\n---> Package mod_http2.x86_64 0:1.15.19-1.amzn2.0.1 will be installed\n--> Finished Dependency Resolution\n\nDependencies Resolved\n\n================================================================================\n Package         Arch         Version                    Repository        Size\n================================================================================\nInstalling:\n httpd           x86_64       2.4.48-2.amzn2             amzn2-core       1.3 M\nInstalling for dependencies:\n mod_http2       x86_64       1.15.19-1.amzn2.0.1        amzn2-core       149 k\n\nTransaction Summary\n================================================================================\nInstall  1 Package (+1 Dependent package)\n\nTotal download size: 1.5 M\nInstalled size: 4.4 M\nDownloading packages:\n--------------------------------------------------------------------------------\nTotal                                              7.2 MB/s | 1.5 MB  00:00     \nRunning transaction check\nRunning transaction test\nTransaction test succeeded\nRunning transaction\n  Installing : httpd-2.4.48-2.amzn2.x86_64                                  1/2 \n  Installing : mod_http2-1.15.19-1.amzn2.0.1.x86_64                         2/2 \n  Verifying  : mod_http2-1.15.19-1.amzn2.0.1.x86_64                         1/2 \n  Verifying  : httpd-2.4.48-2.amzn2.x86_64                                  2/2 \n\nInstalled:\n  httpd.x86_64 0:2.4.48-2.amzn2                                                 \n\nDependency Installed:\n  mod_http2.x86_64 0:1.15.19-1.amzn2.0.1                                        \n\nComplete!\n"
+    ]
+}
+[ansible@ip-172-31-3-111 ~]$ ansible demo[0] -b -m service -a "name=httpd state=started"
+[WARNING]: Could not match supplied host pattern, ignoring: demo
+[WARNING]: No hosts matched, nothing to do
+[ansible@ip-172-31-3-111 ~]$ ansible DEMO[0] -b -m service -a "name=httpd state=started"
+[WARNING]: Platform linux on host 172.31.45.140 is using the discovered Python interpreter at /usr/bin/python, but future
+installation of another Python interpreter could change this. See
+https://docs.ansible.com/ansible/2.9/reference_appendices/interpreter_discovery.html for more information.
+172.31.45.140 | CHANGED => {
+    "ansible_facts": {
+        "discovered_interpreter_python": "/usr/bin/python"
+    },
+    "changed": true,
+    "name": "httpd",
+    "state": "started",
+    "status": {
+        "ActiveEnterTimestampMonotonic": "0",
+        "ActiveExitTimestampMonotonic": "0",
+        "ActiveState": "inactive",
+        "After": "systemd-journald.socket basic.target network.target -.mount tmp.mount httpd-init.service remote-fs.target system.slice nss-lookup.target",
+        "AllowIsolate": "no",
+        "AmbientCapabilities": "0",
+        "AssertResult": "no",
+        "AssertTimestampMonotonic": "0",
+        "Before": "shutdown.target",
+        "BlockIOAccounting": "no",
+        "BlockIOWeight": "18446744073709551615",
+        "CPUAccounting": "no",
+        "CPUQuotaPerSecUSec": "infinity",
+        "CPUSchedulingPolicy": "0",
+        "CPUSchedulingPriority": "0",
+        "CPUSchedulingResetOnFork": "no",
+        "CPUShares": "18446744073709551615",
+        "CanIsolate": "no",
+        "CanReload": "yes",
+        "CanStart": "yes",
+        "CanStop": "yes",
+        "CapabilityBoundingSet": "18446744073709551615",
+        "ConditionResult": "no",
+        "ConditionTimestampMonotonic": "0",
+        "Conflicts": "shutdown.target",
+        "ControlPID": "0",
+        "DefaultDependencies": "yes",
+        "Delegate": "no",
+        "Description": "The Apache HTTP Server",
+        "DevicePolicy": "auto",
+        "Documentation": "man:httpd.service(8)",
+        "Environment": "LANG=C",
+        "ExecMainCode": "0",
+        "ExecMainExitTimestampMonotonic": "0",
+        "ExecMainPID": "0",
+        "ExecMainStartTimestampMonotonic": "0",
+        "ExecMainStatus": "0",
+        "ExecReload": "{ path=/usr/sbin/httpd ; argv[]=/usr/sbin/httpd $OPTIONS -k graceful ; ignore_errors=no ; start_time=[n/a] ; stop_time=[n/a] ; pid=0 ; code=(null) ; status=0/0 }",
+        "ExecStart": "{ path=/usr/sbin/httpd ; argv[]=/usr/sbin/httpd $OPTIONS -DFOREGROUND ; ignore_errors=no ; start_time=[n/a] ; stop_time=[n/a] ; pid=0 ; code=(null) ; status=0/0 }",
+        "FailureAction": "none",
+        "FileDescriptorStoreMax": "0",
+        "FragmentPath": "/usr/lib/systemd/system/httpd.service",
+        "GuessMainPID": "yes",
+        "IOScheduling": "0",
+        "Id": "httpd.service",
+        "IgnoreOnIsolate": "no",
+        "IgnoreOnSnapshot": "no",
+        "IgnoreSIGPIPE": "yes",
+        "InactiveEnterTimestampMonotonic": "0",
+        "InactiveExitTimestampMonotonic": "0",
+        "JobTimeoutAction": "none",
+        "JobTimeoutUSec": "0",
+        "KillMode": "mixed",
+        "KillSignal": "28",
+        "LimitAS": "18446744073709551615",
+        "LimitCORE": "18446744073709551615",
+        "LimitCPU": "18446744073709551615",
+        "LimitDATA": "18446744073709551615",
+        "LimitFSIZE": "18446744073709551615",
+        "LimitLOCKS": "18446744073709551615",
+        "LimitMEMLOCK": "18446744073709551615",
+        "LimitMSGQUEUE": "819200",
+        "LimitNICE": "0",
+        "LimitNOFILE": "65535",
+        "LimitNPROC": "18446744073709551615",
+        "LimitRSS": "18446744073709551615",
+        "LimitRTPRIO": "0",
+        "LimitRTTIME": "18446744073709551615",
+        "LimitSIGPENDING": "30446",
+        "LimitSTACK": "10485760",
+        "LoadState": "loaded",
+        "MainPID": "0",
+        "MemoryAccounting": "no",
+        "MemoryCurrent": "18446744073709551615",
+        "MemoryLimit": "18446744073709551615",
+        "MountFlags": "0",
+        "Names": "httpd.service",
+        "NeedDaemonReload": "no",
+        "Nice": "0",
+        "NoNewPrivileges": "no",
+        "NonBlocking": "no",
+        "NotifyAccess": "main",
+        "OOMScoreAdjust": "0",
+        "OnFailureJobMode": "replace",
+        "PermissionsStartOnly": "no",
+        "PrivateDevices": "no",
+        "PrivateNetwork": "no",
+        "PrivateTmp": "yes",
+        "ProtectHome": "no",
+        "ProtectSystem": "no",
+        "RefuseManualStart": "no",
+        "RefuseManualStop": "no",
+        "RemainAfterExit": "no",
+        "Requires": "basic.target -.mount",
+        "RequiresMountsFor": "/var/tmp",
+        "Restart": "no",
+        "RestartUSec": "100ms",
+        "Result": "success",
+        "RootDirectoryStartOnly": "no",
+        "RuntimeDirectoryMode": "0755",
+        "SameProcessGroup": "no",
+        "SecureBits": "0",
+        "SendSIGHUP": "no",
+        "SendSIGKILL": "yes",
+        "Slice": "system.slice",
+        "StandardError": "inherit",
+        "StandardInput": "null",
+        "StandardOutput": "journal",
+        "StartLimitAction": "none",
+        "StartLimitBurst": "5",
+        "StartLimitInterval": "10000000",
+        "StartupBlockIOWeight": "18446744073709551615",
+        "StartupCPUShares": "18446744073709551615",
+        "StatusErrno": "0",
+        "StopWhenUnneeded": "no",
+        "SubState": "dead",
+        "SyslogLevelPrefix": "yes",
+        "SyslogPriority": "30",
+        "SystemCallErrorNumber": "0",
+        "TTYReset": "no",
+        "TTYVHangup": "no",
+        "TTYVTDisallocate": "no",
+        "TasksAccounting": "no",
+        "TasksCurrent": "18446744073709551615",
+        "TasksMax": "18446744073709551615",
+        "TimeoutStartUSec": "1min 30s",
+        "TimeoutStopUSec": "1min 30s",
+        "TimerSlackNSec": "50000",
+        "Transient": "no",
+        "Type": "notify",
+        "UMask": "0022",
+        "UnitFilePreset": "disabled",
+        "UnitFileState": "disabled",
+        "Wants": "httpd-init.service system.slice",
+        "WatchdogTimestampMonotonic": "0",
+        "WatchdogUSec": "0"
+    }
+}
+[ansible@ip-172-31-3-111 ~]$ ansible DEMO -b -m service -a "name=httpd state=started"
+[WARNING]: Platform linux on host 172.31.45.140 is using the discovered Python interpreter at /usr/bin/python, but future
+installation of another Python interpreter could change this. See
+https://docs.ansible.com/ansible/2.9/reference_appendices/interpreter_discovery.html for more information.
+172.31.45.140 | SUCCESS => {
+    "ansible_facts": {
+        "discovered_interpreter_python": "/usr/bin/python"
+    },
+    "changed": false,
+    "name": "httpd",
+    "state": "started",
+    "status": {
+        "ActiveEnterTimestamp": "Sun 2021-09-12 05:54:54 UTC",
+        "ActiveEnterTimestampMonotonic": "2155661945",
+        "ActiveExitTimestampMonotonic": "0",
+        "ActiveState": "active",
+        "After": "system.slice basic.target -.mount network.target nss-lookup.target remote-fs.target httpd-init.service systemd-journald.socket tmp.mount",
+        "AllowIsolate": "no",
+        "AmbientCapabilities": "0",
+        "AssertResult": "yes",
+        "AssertTimestamp": "Sun 2021-09-12 05:54:54 UTC",
+        "AssertTimestampMonotonic": "2155628387",
+        "Before": "shutdown.target",
+        "BlockIOAccounting": "no",
+        "BlockIOWeight": "18446744073709551615",
+        "CPUAccounting": "no",
+        "CPUQuotaPerSecUSec": "infinity",
+        "CPUSchedulingPolicy": "0",
+        "CPUSchedulingPriority": "0",
+        "CPUSchedulingResetOnFork": "no",
+        "CPUShares": "18446744073709551615",
+        "CanIsolate": "no",
+        "CanReload": "yes",
+        "CanStart": "yes",
+        "CanStop": "yes",
+        "CapabilityBoundingSet": "18446744073709551615",
+        "ConditionResult": "yes",
+        "ConditionTimestamp": "Sun 2021-09-12 05:54:54 UTC",
+        "ConditionTimestampMonotonic": "2155628385",
+        "Conflicts": "shutdown.target",
+        "ControlGroup": "/system.slice/httpd.service",
+        "ControlPID": "0",
+        "DefaultDependencies": "yes",
+        "Delegate": "no",
+        "Description": "The Apache HTTP Server",
+        "DevicePolicy": "auto",
+        "Documentation": "man:httpd.service(8)",
+        "Environment": "LANG=C",
+        "ExecMainCode": "0",
+        "ExecMainExitTimestampMonotonic": "0",
+        "ExecMainPID": "5706",
+        "ExecMainStartTimestamp": "Sun 2021-09-12 05:54:54 UTC",
+        "ExecMainStartTimestampMonotonic": "2155628938",
+        "ExecMainStatus": "0",
+        "ExecReload": "{ path=/usr/sbin/httpd ; argv[]=/usr/sbin/httpd $OPTIONS -k graceful ; ignore_errors=no ; start_time=[n/a] ; stop_time=[n/a] ; pid=0 ; code=(null) ; status=0/0 }",
+        "ExecStart": "{ path=/usr/sbin/httpd ; argv[]=/usr/sbin/httpd $OPTIONS -DFOREGROUND ; ignore_errors=no ; start_time=[Sun 2021-09-12 05:54:54 UTC] ; stop_time=[n/a] ; pid=5706 ; code=(null) ; status=0/0 }",
+        "FailureAction": "none",
+        "FileDescriptorStoreMax": "0",
+        "FragmentPath": "/usr/lib/systemd/system/httpd.service",
+        "GuessMainPID": "yes",
+        "IOScheduling": "0",
+        "Id": "httpd.service",
+        "IgnoreOnIsolate": "no",
+        "IgnoreOnSnapshot": "no",
+        "IgnoreSIGPIPE": "yes",
+        "InactiveEnterTimestampMonotonic": "0",
+        "InactiveExitTimestamp": "Sun 2021-09-12 05:54:54 UTC",
+        "InactiveExitTimestampMonotonic": "2155628979",
+        "JobTimeoutAction": "none",
+        "JobTimeoutUSec": "0",
+        "KillMode": "mixed",
+        "KillSignal": "28",
+        "LimitAS": "18446744073709551615",
+        "LimitCORE": "18446744073709551615",
+        "LimitCPU": "18446744073709551615",
+        "LimitDATA": "18446744073709551615",
+        "LimitFSIZE": "18446744073709551615",
+        "LimitLOCKS": "18446744073709551615",
+        "LimitMEMLOCK": "18446744073709551615",
+        "LimitMSGQUEUE": "819200",
+        "LimitNICE": "0",
+        "LimitNOFILE": "65535",
+        "LimitNPROC": "18446744073709551615",
+        "LimitRSS": "18446744073709551615",
+        "LimitRTPRIO": "0",
+        "LimitRTTIME": "18446744073709551615",
+        "LimitSIGPENDING": "30446",
+        "LimitSTACK": "10485760",
+        "LoadState": "loaded",
+        "MainPID": "5706",
+        "MemoryAccounting": "no",
+        "MemoryCurrent": "18446744073709551615",
+        "MemoryLimit": "18446744073709551615",
+        "MountFlags": "0",
+        "Names": "httpd.service",
+        "NeedDaemonReload": "no",
+        "Nice": "0",
+        "NoNewPrivileges": "no",
+        "NonBlocking": "no",
+        "NotifyAccess": "main",
+        "OOMScoreAdjust": "0",
+        "OnFailureJobMode": "replace",
+        "PermissionsStartOnly": "no",
+        "PrivateDevices": "no",
+        "PrivateNetwork": "no",
+        "PrivateTmp": "yes",
+        "ProtectHome": "no",
+        "ProtectSystem": "no",
+        "RefuseManualStart": "no",
+        "RefuseManualStop": "no",
+        "RemainAfterExit": "no",
+        "Requires": "basic.target -.mount",
+        "RequiresMountsFor": "/var/tmp",
+        "Restart": "no",
+        "RestartUSec": "100ms",
+        "Result": "success",
+        "RootDirectoryStartOnly": "no",
+        "RuntimeDirectoryMode": "0755",
+        "SameProcessGroup": "no",
+        "SecureBits": "0",
+        "SendSIGHUP": "no",
+        "SendSIGKILL": "yes",
+        "Slice": "system.slice",
+        "StandardError": "inherit",
+        "StandardInput": "null",
+        "StandardOutput": "journal",
+        "StartLimitAction": "none",
+        "StartLimitBurst": "5",
+        "StartLimitInterval": "10000000",
+        "StartupBlockIOWeight": "18446744073709551615",
+        "StartupCPUShares": "18446744073709551615",
+        "StatusErrno": "0",
+        "StatusText": "Total requests: 0; Idle/Busy workers 100/0;Requests/sec: 0; Bytes served/sec:   0 B/sec",
+        "StopWhenUnneeded": "no",
+        "SubState": "running",
+        "SyslogLevelPrefix": "yes",
+        "SyslogPriority": "30",
+        "SystemCallErrorNumber": "0",
+        "TTYReset": "no",
+        "TTYVHangup": "no",
+        "TTYVTDisallocate": "no",
+        "TasksAccounting": "no",
+        "TasksCurrent": "18446744073709551615",
+        "TasksMax": "18446744073709551615",
+        "TimeoutStartUSec": "1min 30s",
+        "TimeoutStopUSec": "1min 30s",
+        "TimerSlackNSec": "50000",
+        "Transient": "no",
+        "Type": "notify",
+        "UMask": "0022",
+        "UnitFilePreset": "disabled",
+        "UnitFileState": "disabled",
+        "Wants": "httpd-init.service system.slice",
+        "WatchdogTimestamp": "Sun 2021-09-12 05:54:54 UTC",
+        "WatchdogTimestampMonotonic": "2155661917",
+        "WatchdogUSec": "0"
+    }
+}
+[WARNING]: Platform linux on host 172.31.0.42 is using the discovered Python interpreter at /usr/bin/python, but future installation
+of another Python interpreter could change this. See
+https://docs.ansible.com/ansible/2.9/reference_appendices/interpreter_discovery.html for more information.
+172.31.0.42 | CHANGED => {
+    "ansible_facts": {
+        "discovered_interpreter_python": "/usr/bin/python"
+    },
+    "changed": true,
+    "name": "httpd",
+    "state": "started",
+    "status": {
+        "ActiveEnterTimestampMonotonic": "0",
+        "ActiveExitTimestampMonotonic": "0",
+        "ActiveState": "inactive",
+        "After": "remote-fs.target systemd-journald.socket httpd-init.service nss-lookup.target -.mount basic.target system.slice tmp.mount network.target",
+        "AllowIsolate": "no",
+        "AmbientCapabilities": "0",
+        "AssertResult": "no",
+        "AssertTimestampMonotonic": "0",
+        "Before": "shutdown.target",
+        "BlockIOAccounting": "no",
+        "BlockIOWeight": "18446744073709551615",
+        "CPUAccounting": "no",
+        "CPUQuotaPerSecUSec": "infinity",
+        "CPUSchedulingPolicy": "0",
+        "CPUSchedulingPriority": "0",
+        "CPUSchedulingResetOnFork": "no",
+        "CPUShares": "18446744073709551615",
+        "CanIsolate": "no",
+        "CanReload": "yes",
+        "CanStart": "yes",
+        "CanStop": "yes",
+        "CapabilityBoundingSet": "18446744073709551615",
+        "CollectMode": "inactive",
+        "ConditionResult": "no",
+        "ConditionTimestampMonotonic": "0",
+        "Conflicts": "shutdown.target",
+        "ControlPID": "0",
+        "DefaultDependencies": "yes",
+        "Delegate": "no",
+        "Description": "The Apache HTTP Server",
+        "DevicePolicy": "auto",
+        "Documentation": "man:httpd.service(8)",
+        "Environment": "LANG=C",
+        "ExecMainCode": "0",
+        "ExecMainExitTimestampMonotonic": "0",
+        "ExecMainPID": "0",
+        "ExecMainStartTimestampMonotonic": "0",
+        "ExecMainStatus": "0",
+        "ExecReload": "{ path=/usr/sbin/httpd ; argv[]=/usr/sbin/httpd $OPTIONS -k graceful ; ignore_errors=no ; start_time=[n/a] ; stop_time=[n/a] ; pid=0 ; code=(null) ; status=0/0 }",
+        "ExecStart": "{ path=/usr/sbin/httpd ; argv[]=/usr/sbin/httpd $OPTIONS -DFOREGROUND ; ignore_errors=no ; start_time=[n/a] ; stop_time=[n/a] ; pid=0 ; code=(null) ; status=0/0 }",
+        "FailureAction": "none",
+        "FileDescriptorStoreMax": "0",
+        "FragmentPath": "/usr/lib/systemd/system/httpd.service",
+        "GuessMainPID": "yes",
+        "IOScheduling": "0",
+        "Id": "httpd.service",
+        "IgnoreOnIsolate": "no",
+        "IgnoreOnSnapshot": "no",
+        "IgnoreSIGPIPE": "yes",
+        "InactiveEnterTimestampMonotonic": "0",
+        "InactiveExitTimestampMonotonic": "0",
+        "JobTimeoutAction": "none",
+        "JobTimeoutUSec": "0",
+        "KillMode": "mixed",
+        "KillSignal": "28",
+        "LimitAS": "18446744073709551615",
+        "LimitCORE": "18446744073709551615",
+        "LimitCPU": "18446744073709551615",
+        "LimitDATA": "18446744073709551615",
+        "LimitFSIZE": "18446744073709551615",
+        "LimitLOCKS": "18446744073709551615",
+        "LimitMEMLOCK": "18446744073709551615",
+        "LimitMSGQUEUE": "819200",
+        "LimitNICE": "0",
+        "LimitNOFILE": "65535",
+        "LimitNPROC": "18446744073709551615",
+        "LimitRSS": "18446744073709551615",
+        "LimitRTPRIO": "0",
+        "LimitRTTIME": "18446744073709551615",
+        "LimitSIGPENDING": "30446",
+        "LimitSTACK": "10485760",
+        "LoadState": "loaded",
+        "MainPID": "0",
+        "MemoryAccounting": "no",
+        "MemoryCurrent": "18446744073709551615",
+        "MemoryLimit": "18446744073709551615",
+        "MountFlags": "0",
+        "Names": "httpd.service",
+        "NeedDaemonReload": "no",
+        "Nice": "0",
+        "NoNewPrivileges": "no",
+        "NonBlocking": "no",
+        "NotifyAccess": "main",
+        "OOMScoreAdjust": "0",
+        "OnFailureJobMode": "replace",
+        "PermissionsStartOnly": "no",
+        "PrivateDevices": "no",
+        "PrivateNetwork": "no",
+        "PrivateTmp": "yes",
+        "ProtectHome": "no",
+        "ProtectSystem": "no",
+        "RefuseManualStart": "no",
+        "RefuseManualStop": "no",
+        "RemainAfterExit": "no",
+        "Requires": "basic.target -.mount system.slice",
+        "RequiresMountsFor": "/var/tmp",
+        "Restart": "no",
+        "RestartUSec": "100ms",
+        "Result": "success",
+        "RootDirectoryStartOnly": "no",
+        "RuntimeDirectoryMode": "0755",
+        "SameProcessGroup": "no",
+        "SecureBits": "0",
+        "SendSIGHUP": "no",
+        "SendSIGKILL": "yes",
+        "Slice": "system.slice",
+        "StandardError": "inherit",
+        "StandardInput": "null",
+        "StandardOutput": "journal",
+        "StartLimitAction": "none",
+        "StartLimitBurst": "5",
+        "StartLimitInterval": "10000000",
+        "StartupBlockIOWeight": "18446744073709551615",
+        "StartupCPUShares": "18446744073709551615",
+        "StatusErrno": "0",
+        "StopWhenUnneeded": "no",
+        "SubState": "dead",
+        "SyslogLevelPrefix": "yes",
+        "SyslogPriority": "30",
+        "SystemCallErrorNumber": "0",
+        "TTYReset": "no",
+        "TTYVHangup": "no",
+        "TTYVTDisallocate": "no",
+        "TasksAccounting": "no",
+        "TasksCurrent": "18446744073709551615",
+        "TasksMax": "18446744073709551615",
+        "TimeoutStartUSec": "1min 30s",
+        "TimeoutStopUSec": "1min 30s",
+        "TimerSlackNSec": "50000",
+        "Transient": "no",
+        "Type": "notify",
+        "UMask": "0022",
+        "UnitFilePreset": "disabled",
+        "UnitFileState": "disabled",
+        "Wants": "httpd-init.service",
+        "WatchdogTimestampMonotonic": "0",
+        "WatchdogUSec": "0"
+    }
+}
+[ansible@ip-172-31-3-111 ~]$ touch societe_generale
+[ansible@ip-172-31-3-111 ~]$ ansible DEMO[-1] -b -m copy -a "src=societe_generale dest=/naba/"
+[WARNING]: Platform linux on host 172.31.0.42 is using the discovered Python interpreter at /usr/bin/python, but future installation
+of another Python interpreter could change this. See
+https://docs.ansible.com/ansible/2.9/reference_appendices/interpreter_discovery.html for more information.
+172.31.0.42 | CHANGED => {
+    "ansible_facts": {
+        "discovered_interpreter_python": "/usr/bin/python"
+    },
+    "changed": true,
+    "checksum": "da39a3ee5e6b4b0d3255bfef95601890afd80709",
+    "dest": "/naba/societe_generale",
+    "gid": 0,
+    "group": "root",
+    "md5sum": "d41d8cd98f00b204e9800998ecf8427e",
+    "mode": "0644",
+    "owner": "root",
+    "size": 0,
+    "src": "/home/ansible/.ansible/tmp/ansible-tmp-1631426419.57-4257-169145405568794/source",
+    "state": "file",
+    "uid": 0
+}
+[ansible@ip-172-31-3-111 ~]$ ansible DEMO[-1] -b -m copy -a "src=societe_generale dest=naba/"
+[WARNING]: Platform linux on host 172.31.0.42 is using the discovered Python interpreter at /usr/bin/python, but future installation
+of another Python interpreter could change this. See
+https://docs.ansible.com/ansible/2.9/reference_appendices/interpreter_discovery.html for more information.
+172.31.0.42 | CHANGED => {
+    "ansible_facts": {
+        "discovered_interpreter_python": "/usr/bin/python"
+    },
+    "changed": true,
+    "checksum": "da39a3ee5e6b4b0d3255bfef95601890afd80709",
+    "dest": "naba/societe_generale",
+    "gid": 0,
+    "group": "root",
+    "md5sum": "d41d8cd98f00b204e9800998ecf8427e",
+    "mode": "0644",
+    "owner": "root",
+    "size": 0,
+    "src": "/home/ansible/.ansible/tmp/ansible-tmp-1631426584.89-4306-134164121064236/source",
+    "state": "file",
+    "uid": 0
+}
+[ansible@ip-172-31-3-111 ~]$ ansible DEMO[0:1] -b -m copy -a "src=societe_generale dest=naba/"
+[WARNING]: Platform linux on host 172.31.0.42 is using the discovered Python interpreter at /usr/bin/python, but future installation
+of another Python interpreter could change this. See
+https://docs.ansible.com/ansible/2.9/reference_appendices/interpreter_discovery.html for more information.
+172.31.0.42 | SUCCESS => {
+    "ansible_facts": {
+        "discovered_interpreter_python": "/usr/bin/python"
+    },
+    "changed": false,
+    "checksum": "da39a3ee5e6b4b0d3255bfef95601890afd80709",
+    "dest": "naba/societe_generale",
+    "gid": 0,
+    "group": "root",
+    "mode": "0644",
+    "owner": "root",
+    "path": "naba/societe_generale",
+    "size": 0,
+    "state": "file",
+    "uid": 0
+}
+[WARNING]: Platform linux on host 172.31.45.140 is using the discovered Python interpreter at /usr/bin/python, but future
+installation of another Python interpreter could change this. See
+https://docs.ansible.com/ansible/2.9/reference_appendices/interpreter_discovery.html for more information.
+172.31.45.140 | CHANGED => {
+    "ansible_facts": {
+        "discovered_interpreter_python": "/usr/bin/python"
+    },
+    "changed": true,
+    "checksum": "da39a3ee5e6b4b0d3255bfef95601890afd80709",
+    "dest": "naba/societe_generale",
+    "gid": 0,
+    "group": "root",
+    "md5sum": "d41d8cd98f00b204e9800998ecf8427e",
+    "mode": "0644",
+    "owner": "root",
+    "size": 0,
+    "src": "/home/ansible/.ansible/tmp/ansible-tmp-1631426613.21-4334-114415196441936/source",
+    "state": "file",
+    "uid": 0
+}
+[ansible@ip-172-31-3-111 ~]$ ansible DEMO[0:1] -b -m copy -a "src=societe_generale dest=naba/"
+[WARNING]: Platform linux on host 172.31.45.140 is using the discovered Python interpreter at /usr/bin/python, but future
+installation of another Python interpreter could change this. See
+https://docs.ansible.com/ansible/2.9/reference_appendices/interpreter_discovery.html for more information.
+172.31.45.140 | SUCCESS => {
+    "ansible_facts": {
+        "discovered_interpreter_python": "/usr/bin/python"
+    },
+    "changed": false,
+    "checksum": "da39a3ee5e6b4b0d3255bfef95601890afd80709",
+    "dest": "naba/societe_generale",
+    "gid": 0,
+    "group": "root",
+    "mode": "0644",
+    "owner": "root",
+    "path": "naba/societe_generale",
+    "size": 0,
+    "state": "file",
+    "uid": 0
+}
+[WARNING]: Platform linux on host 172.31.0.42 is using the discovered Python interpreter at /usr/bin/python, but future installation
+of another Python interpreter could change this. See
+https://docs.ansible.com/ansible/2.9/reference_appendices/interpreter_discovery.html for more information.
+172.31.0.42 | SUCCESS => {
+    "ansible_facts": {
+        "discovered_interpreter_python": "/usr/bin/python"
+    },
+    "changed": false,
+    "checksum": "da39a3ee5e6b4b0d3255bfef95601890afd80709",
+    "dest": "naba/societe_generale",
+    "gid": 0,
+    "group": "root",
+    "mode": "0644",
+    "owner": "root",
+    "path": "naba/societe_generale",
+    "size": 0,
+    "state": "file",
+    "uid": 0
+}
+[ansible@ip-172-31-3-111 ~]$
